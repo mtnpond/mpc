@@ -5,15 +5,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Mountain Pond Creative</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="icon" type="image/icon" href="./public/icon.png" />
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     </head>
     <body class="min-h-screen bg-white">
-        <header class="container mx-auto py-8">
-            <h1 class="text-4xl font-bold text-center text-gray-900">Mountain Pond Creative</h1>
-            <p class="text-xl text-center text-gray-600 mt-2">Elevating Your Digital Presence</p>
+        <nav class="bg-gray-900 text-white py-4 sticky top-0 z-10">
+            <div class="container mx-auto px-4 flex justify-between items-center">
+                <a href="#" class="text-xl font-bold">MPC</a>
+                <ul class="flex space-x-4">
+                    <li><a href="#services" class="hover:text-gray-300">Services</a></li>
+                    <li><a href="#pricing" class="hover:text-gray-300">Pricing</a></li>
+                    <li><a href="#contact" class="hover:text-gray-300">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <header class="container mx-auto max-sm:py-4 py-8 px-4 flex flex-row items-center justify-start max-sm:flex-col">
+            <div class="max-sm:w-20 w-40">
+                <img src="./public/logo.png" alt="Mountain Pond Creative Logo" />
+            </div>
+            <div>
+                <h1 class="text-4xl font-bold text-center text-gray-900">Mountain Pond Creative</h1>
+                <p class="text-xl text-center text-gray-600 mt-2">Elevating Your Digital Presence</p>
+            </div>
         </header>
 
         <main class="container mx-auto px-4">
-            <section class="my-12">
+            <section id="services" class="my-12">
                 <h2 class="text-3xl font-semibold text-center mb-8 text-gray-900">Our Services</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="bg-gray-900 p-6 rounded-lg shadow-md text-white">
@@ -43,7 +61,7 @@
                 </div>
             </section>
 
-            <section class="my-12">
+            <section id="pricing" class="my-12">
                 <h2 class="text-3xl font-semibold text-center mb-8 text-gray-900">Pricing</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="flex flex-col bg-gray-900 text-white border-gray-800 rounded-lg overflow-hidden">
@@ -98,6 +116,31 @@
                     </div>
                 </div>
             </section>
+
+            <section id="contact" class="my-12">
+                <h2 class="text-3xl font-semibold text-center mb-8 text-gray-900">Contact Us</h2>
+                <div class="max-w-md mx-auto bg-gray-900 p-6 rounded-lg shadow-md text-white">
+                    <form id="contact-form">
+                        <div class="mb-4">
+                            <label for="from_name" class="block text-sm font-medium mb-2">Name</label>
+                            <input type="text" id="name" name="from_name" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white" required />
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white" required />
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="block text-sm font-medium mb-2">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white" required />
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white" required></textarea>
+                        </div>
+                        <button type="submit" value="Send" class="w-full bg-white text-gray-900 hover:bg-gray-100 py-2 px-4 rounded">Send Message</button>
+                    </form>
+                </div>
+            </section>
         </main>
 
         <footer class="bg-gray-900 text-white py-8 mt-12">
@@ -105,5 +148,31 @@
                 <p>&copy; 2023 Mountain Pond Creative. All rights reserved.</p>
             </div>
         </footer>
+        <script type="text/javascript">
+            window.onload = function () {
+                emailjs.init({
+                    publicKey: "Rkb1BPw2sk33tb1X0",
+                    limitRate: {
+                        // Set the limit rate for the application
+                        id: "app",
+                        // Allow 1 request per 10s
+                        throttle: 10000,
+                    },
+                });
+                document.getElementById("contact-form").addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    emailjs.sendForm("service_0iu5lf9", "template_kq66rof", this).then(
+                        function () {
+                            console.log("SUCCESS!");
+                            alert("Message sent successfully!");
+                        },
+                        function (error) {
+                            alert("Failed to send message. Please try again.");
+                            console.log(error);
+                        }
+                    );
+                });
+            };
+        </script>
     </body>
 </html>
